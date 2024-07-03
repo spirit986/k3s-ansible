@@ -52,3 +52,11 @@
         dest: ./kubeconfig
         flat: true
       when: ansible_hostname == hostvars[groups[group_name_master | default('master')][0]]['ansible_hostname']
+
+- name: Install Helm addons
+  hosts: master_helm
+  environment: "{{ proxy_env | default({}) }}"
+  roles:
+    - role: helm_addons
+      become: true
+      when: deploy_helm_addons

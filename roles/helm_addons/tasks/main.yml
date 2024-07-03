@@ -1,0 +1,9 @@
+---
+- name: Install helm
+  include_tasks: helm.yml
+
+- name: Deploy Ingress NGINX
+  include_tasks: ingress-nginx.yml
+
+- name: Deploy cert-manager
+  include_tasks: cert-manager.yml

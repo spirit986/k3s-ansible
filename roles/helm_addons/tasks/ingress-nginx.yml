@@ -1,0 +1,30 @@
+---
+- name: INGRESS NGINX - Add ingress-nginx helm repo
+  kubernetes.core.helm_repository:
+    name: ingress-nginx
+    repo_url: https://kubernetes.github.io/ingress-nginx
+    kubeconfig_path: "{{ kube_config_path }}"
+
+- name: INGRESS NGINX - Deploy Ingress NGINX
+  kubernetes.core.helm:
+    kubeconfig_path: "{{ kube_config_path }}"
+    name: ingress-nginx
+    chart_ref: ingress-nginx/ingress-nginx
+    chart_version: 4.6.1
+    update_repo_cache: true
+    namespace: ingress-nginx
+    create_namespace: true
+    release_state: present
+    set_values:
+      - value: controller.ingressClass=nginx
+        value_type: string
+      - value: controller.ingressClassResource.default=true
+        value_type: string
+      - value: controller.service.type=LoadBalancer
+        value_type: string
+      - value: controller.admissionWebhooks.certManager.enable=true
+        value_type: string
+      - value: controller.metrics.enabled=true
+        value_type: string
+      - value: controller.metrics.prometheusRule.enabled=true
+        value_type: string

@@ -5,9 +5,9 @@ ansible_user: ansibleuser
 ansible_ssh_private_key_file: path/to/private_key
 systemd_dir: /etc/systemd/system
 
-# ## Deploy additional helm addons from roles/helm_addons
-# deploy_helm_addons: true 
-# kube_config_path: .kube/config ## Helm will look for the kubeconfig at this location on the master
+## Deploy additional helm addons from roles/helm_addons
+deploy_helm_addons: true 
+kube_config_path: .kube/config ## Helm will look for the kubeconfig at this location on the master
 
 # Set your timezone
 system_timezone: "Your/Timezone"
