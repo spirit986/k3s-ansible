@@ -62,7 +62,6 @@ spec:
     targetPort: 80
   selector:
     app: nginx-first-deployment
-  loadBalancerClass: "metallb"
   type: LoadBalancer
 EOF
 ```
@@ -110,7 +109,6 @@ spec:
     targetPort: 80
   selector:
     app: nginx-second-deployment
-  loadBalancerClass: "metallb"
   type: LoadBalancer
 EOF
 ```
@@ -158,7 +156,6 @@ spec:
     targetPort: 80
   selector:
     app: nginx-third-deployment
-  loadBalancerClass: "metallb"
   type: LoadBalancer
 EOF
 ```
