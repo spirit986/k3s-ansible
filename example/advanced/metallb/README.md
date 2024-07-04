@@ -1,4 +1,7 @@
 ### Test MetalLB deployment and the IP address allocation
+**NOTE:** If you use the examples provided in this folder make sure to update the IP Addresses from `metallb.universe.tf/loadBalancerIPs` to match your environment.
+
+
 Create the namespace:
 ```bash
 $ cat >nginx-test-deployments-namespace.yml <<EOF
@@ -12,6 +15,10 @@ $ kubectl apply -f nginx-test-deployments-namespace.yml
 ```
 
 Create three nginx deployments and apply them.
+
+Replace `IP_ADDR` from `metallb.universe.tf/loadBalancerIPs:` with an IP address from the `metal_lb_ip_range` variable from `group_vars/all.yml` `metallb` will use this IP address. 
+
+Alternatively comment out that section from the Service part and `metallb` will auto assign an IP address.
 ```bash
 $ cat >nginx-first-deployment.yml <<EOF
 apiVersion: apps/v1
@@ -47,8 +54,8 @@ metadata:
   name: nginx-first-deployment-service
   labels:
     app: nginx-first-deployment
-  #annotations:
-    #metallb.universe.tf/loadBalancerIPs: 192.168.1.100
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: IP_ADDR
 spec:
   ports:
   - port: 80
@@ -95,8 +102,8 @@ metadata:
   name: nginx-second-deployment-service
   labels:
     app: nginx-second-deployment
-  #annotations:
-    #metallb.universe.tf/loadBalancerIPs: 192.168.1.100
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: IP_ADDR
 spec:
   ports:
   - port: 80
@@ -143,8 +150,8 @@ metadata:
   name: nginx-third-deployment-service
   labels:
     app: nginx-third-deployment
-  #annotations:
-    #metallb.universe.tf/loadBalancerIPs: 192.168.1.100
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: IP_ADDR
 spec:
   ports:
   - port: 80
@@ -177,4 +184,10 @@ From the browser or with `curl` confirm that you can reach the IPs, for example:
 ```bash
 $ curl http://172.16.1.11
 This is the FIRST nginx deployment
+
+$ curl http://172.16.1.12
+This is the SECOND nginx deployment
+
+$ curl http://172.16.1.13
+This is the THIRD nginx deployment
 ```
