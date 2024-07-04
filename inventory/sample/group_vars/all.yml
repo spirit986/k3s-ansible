@@ -1,5 +1,5 @@
 ---
-k3s_version: v1.29.2+k3s1
+k3s_version: v1.30.2+k3s1
 # this is the user that has ssh access to these machines
 ansible_user: ansibleuser
 ansible_ssh_private_key_file: path/to/private_key
@@ -86,6 +86,9 @@ metal_lb_speaker_tag_version: "v0.14.3"
 metal_lb_controller_tag_version: "v0.14.3"
 
 # metallb ip range for load balancer
+# set this according to your available range in your networks OUTSIDE of the DHCP range.
+# EXAMPLE: if your network is 192.168.1.0/24 and the DHCP range is 192.168.1.100 - 192.168.1.150, you can set
+#   metal_lb_ip_range: "192.168.1.10-192.168.1.60"
 metal_lb_ip_range: "192.168.30.80-192.168.30.90"
 
 # Only enable this if you have set up your own container registry to act as a mirror / pull-through cache
