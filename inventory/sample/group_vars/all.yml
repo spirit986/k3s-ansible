@@ -5,9 +5,19 @@ ansible_user: ansibleuser
 ansible_ssh_private_key_file: path/to/private_key
 systemd_dir: /etc/systemd/system
 
-## Deploy additional helm addons from roles/helm_addons
-deploy_helm_addons: true 
-kube_config_path: .kube/config ## Helm will look for the kubeconfig at this location on the master
+## Deploy additional helm addons from "roles/helm_addons"
+#  When "site_helm.yml" playbook is executed the helm addons listed under "roles/helm_addons" 
+#    will be deployed on the master node specified under [master_helm] in hosts.ini 
+#
+kube_config_path: .kube/config # Helm will look for the kubeconfig at this location on the master
+deploy_cert_manager: true 
+cert_manager_chart_ver: 1.15.0
+
+deploy_nginx_ingress: true 
+nginx_ingress_chart_ver: 4.7.0
+
+deploy_prometheus_stack: true # To do 
+prometheus_stack_chart_ver: 1.1.1 
 
 # Set your timezone
 system_timezone: "Your/Timezone"

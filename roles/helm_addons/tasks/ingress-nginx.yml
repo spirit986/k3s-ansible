@@ -5,12 +5,12 @@
     repo_url: https://kubernetes.github.io/ingress-nginx
     kubeconfig_path: "{{ kube_config_path }}"
 
-- name: INGRESS NGINX - Deploy Ingress NGINX
+- name: INGRESS NGINX - Deploy Ingress NGINX ver. {{ nginx_ingress_chart_ver }}
   kubernetes.core.helm:
     kubeconfig_path: "{{ kube_config_path }}"
     name: ingress-nginx
     chart_ref: ingress-nginx/ingress-nginx
-    chart_version: 4.6.1
+    chart_version: "{{ nginx_ingress_chart_ver }}"
     update_repo_cache: true
     namespace: ingress-nginx
     create_namespace: true

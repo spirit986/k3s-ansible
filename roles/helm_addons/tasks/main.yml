@@ -4,6 +4,9 @@
 
 - name: Deploy Ingress NGINX
   include_tasks: ingress-nginx.yml
+  when: deploy_nginx_ingress
 
 - name: Deploy cert-manager
   include_tasks: cert-manager.yml
+  when: deploy_cert_manager
+  
