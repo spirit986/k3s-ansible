@@ -1,0 +1,23 @@
+---
+- name: Install Helm
+  package:
+    name: curl
+    state: present
+
+- name: Download Helm installation script
+  get_url:
+    url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    dest: /tmp/get_helm.sh
+    mode: '0755'
+
+- name: Run Helm installation script
+  command: /tmp/get_helm.sh
+  args:
+    creates: /usr/local/bin/helm
+  register: helm_install_result
+  changed_when: false
+
+- name: Install Helm Diff
+  kubernetes.core.helm_plugin:
+    plugin_path: "https://github.com/databus23/helm-diff"
+    state: present

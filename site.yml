@@ -8,28 +8,14 @@
         msg: >
           "Ansible is out of date. See here for more info: https://docs.technotim.live/posts/ansible-automation/"
 
-- name: Prepare Proxmox cluster
-  hosts: proxmox
-  gather_facts: true
-  become: true
-  environment: "{{ proxy_env | default({}) }}"
-  roles:
-    - role: proxmox_lxc
-      when: proxmox_lxc_configure
-
 - name: Prepare k3s nodes
   hosts: k3s_cluster
   gather_facts: true
   environment: "{{ proxy_env | default({}) }}"
   roles:
-    - role: lxc
-      become: true
-      when: proxmox_lxc_configure
     - role: prereq
       become: true
     - role: download
-      become: true
-    - role: raspberrypi
       become: true
     - role: k3s_custom_registries
       become: true
@@ -66,3 +52,11 @@
         dest: ./kubeconfig
         flat: true
       when: ansible_hostname == hostvars[groups[group_name_master | default('master')][0]]['ansible_hostname']
+
+- name: Post install
+  hosts: localhost
+  tasks:
+    - name: Cluster provisioning complete
+      ansible.builtin.debug:
+        msg:
+          - 'You can now opt to deploy additional helm addons from site_helm.yml'

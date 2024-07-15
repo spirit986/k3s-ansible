@@ -1,0 +1,7 @@
+---
+- name: Install Helm addons
+  hosts: master_helm
+  environment: "{{ proxy_env | default({}) }}"
+  roles:
+    - role: helm_addons
+      become: true
