@@ -7,7 +7,7 @@ A continuation on Tehno Tim's k3s-ansible which aims to remove un-needed cluter 
 This is based on the work from [this fork](https://github.com/212850a/k3s-ansible) which is based on the work from [k3s-io/k3s-ansible](https://github.com/k3s-io/k3s-ansible). It uses [kube-vip](https://kube-vip.io/) to create a load balancer for control plane, and [metal-lb](https://metallb.universe.tf/installation/) for its service `LoadBalancer`.
 
 ## How is this different from Tehno Tim's work?
-Some cluster was removed (for easyer maintainence), while other more relevant stuff was added as an option during the installation.
+Some clutter was removed (for easyer maintainence), while other more relevant stuff was added as an option during the installation.
 1. Most importantly this version features a playbook with helm addons in a separate file `site_helm.yml`. For now it instals only `ingress-nginx` and `cert-manager` to the cluster. Other stuff like the prometheus stack will also be added in the near future.
 2. Added advanced examples for testing the `metallb` and `ingress-nginx` functionality.
 3. Removed the proxmox_lxc option (Because why would anyone want to deploy k3s cluster on lxc containers?)
